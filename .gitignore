@@ -3,3 +3,4 @@ venv
 person.json
 Untitled-Message-Table-search-result.csv
 *.cpython-310.pyc
+.env
