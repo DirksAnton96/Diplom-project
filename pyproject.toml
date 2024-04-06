@@ -1,0 +1,13 @@
+[tool.poetry]
+name = "Diplom python"
+version = "0.1.0"
+description = "We create coworking aplication"
+authors = ["DirksAnton96 <dirks.anton96@yandex.ru>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
