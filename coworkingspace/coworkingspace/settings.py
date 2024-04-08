@@ -154,7 +154,7 @@ LDAP_AUTH_USE_TLS = False
 LDAP_AUTH_SEARCH_BASE = os.environ.get('DJANGO_LDAP_AUTH_SEARCH_BASE')
 
 # The LDAP class that represents a user.
-LDAP_AUTH_OBJECT_CLASS = "*"
+LDAP_AUTH_OBJECT_CLASS = "user"
 
 # User model fields mapped to the LDAP
 # attributes that represent them.
