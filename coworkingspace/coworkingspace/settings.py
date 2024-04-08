@@ -39,7 +39,22 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_python3_ldap',
+    # 'users',
+    # 'app',
 ]
+
+
+#AUTH_USER_MODEL = "users.User"
+
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+LOGIN_URL = "/account/login"
+
+AUTHENTICATION_BACKENDS = (
+    "django_python3_ldap.auth.LDAPBackend",
+    'django.contrib.auth.backends.ModelBackend',
+    )
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -125,22 +140,21 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-
 # The URL of the LDAP server(s).  List multiple servers for high availability ServerPool connection.
-LDAP_AUTH_URL = os.environ.get('DJANGO_LDAP_AUTH_URL')
+LDAP_AUTH_URL = [os.environ.get('DJANGO_LDAP_AUTH_URL')]
 
 # Initiate TLS on connection.
 LDAP_AUTH_USE_TLS = False
 
 # Specify which TLS version to use (Python 3.10 requires TLSv1 or higher)
-import ssl
-LDAP_AUTH_TLS_VERSION = ssl.PROTOCOL_TLSv1_2
+#import ssl
+#LDAP_AUTH_TLS_VERSION = ssl.PROTOCOL_TLSv1_2
 
 # The LDAP search base for looking up users.
 LDAP_AUTH_SEARCH_BASE = os.environ.get('DJANGO_LDAP_AUTH_SEARCH_BASE')
 
 # The LDAP class that represents a user.
-LDAP_AUTH_OBJECT_CLASS = "user"
+LDAP_AUTH_OBJECT_CLASS = "*"
 
 # User model fields mapped to the LDAP
 # attributes that represent them.
@@ -148,7 +162,7 @@ LDAP_AUTH_USER_FIELDS = {
     "username": "sAMAccountName",
     "first_name": "givenName",
     "last_name": "sn",
-    "email": "mail",
+    "email": "userPrincipalName",
 }
 
 # A tuple of django model fields used to uniquely identify a user.
@@ -174,10 +188,10 @@ LDAP_AUTH_FORMAT_SEARCH_FILTERS = "django_python3_ldap.utils.format_search_filte
 # Path to a callable that takes a dict of {model_field_name: value}, and returns
 # a string of the username to bind to the LDAP server.
 # Use this to support different types of LDAP server.
-LDAP_AUTH_FORMAT_USERNAME = "django_python3_ldap.utils.format_username_openldap"
+LDAP_AUTH_FORMAT_USERNAME = "django_python3_ldap.utils.format_username_active_directory"
 
 # Sets the login domain for Active Directory users.
-LDAP_AUTH_ACTIVE_DIRECTORY_DOMAIN = os.environ.get('DJANGO_LDAP_AUTH_ACTIVE_DIRECTORY_DOMAIN')
+LDAP_AUTH_ACTIVE_DIRECTORY_DOMAIN = None
 
 # The LDAP username and password of a user for querying the LDAP database for user
 # details. If None, then the authenticated user will be used for querying, and
@@ -188,19 +202,3 @@ LDAP_AUTH_CONNECTION_PASSWORD = os.environ.get('DJANGO_LDAP_AUTH_CONNECTION_PASS
 # Set connection/receive timeouts (in seconds) on the underlying `ldap3` library.
 LDAP_AUTH_CONNECT_TIMEOUT = None
 LDAP_AUTH_RECEIVE_TIMEOUT = None
-
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "handlers": {
-        "console": {
-            "class": "logging.StreamHandler",
-        },
-    },
-    "loggers": {
-        "django_python3_ldap": {
-            "handlers": ["console"],
-            "level": "INFO",
-        },
-    },
-}
