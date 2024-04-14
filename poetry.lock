@@ -154,6 +154,20 @@ files = [
 ]
 
 [[package]]
+name = "python-dotenv"
+version = "1.0.1"
+description = "Read key-value pairs from a .env file and set them as environment variables"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "python-dotenv-1.0.1.tar.gz", hash = "sha256:e324ee90a023d808f1959c46bcbc04446a10ced277783dc6ee09987c37ec10ca"},
+    {file = "python_dotenv-1.0.1-py3-none-any.whl", hash = "sha256:f7b63ef50f1b690dddf550d03497b66d609393b40b564ed0d674909a68ebf16a"},
+]
+
+[package.extras]
+cli = ["click (>=5.0)"]
+
+[[package]]
 name = "python3-ldap"
 version = "0.9.8.4"
 description = "project renamed ldap3 - please install the ldap3 package instead of python3-ldap"
@@ -208,4 +222,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "9e669f28416ab51f311ca00dda8f5347474a24f3425e4e9e1cd22f77d5ba14dd"
+content-hash = "3ddedb13463b867c14a99426215fca20ee84b9c526cd6f75e51fa9ddcc508aa8"

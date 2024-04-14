@@ -12,11 +12,14 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 
+from dotenv import load_dotenv
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -40,12 +43,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_python3_ldap',
-    # 'users',
-    # 'app',
+    "users",
+    "app",
 ]
 
 
-#AUTH_USER_MODEL = "users.User"
+AUTH_USER_MODEL = "users.User"
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
@@ -141,7 +144,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # The URL of the LDAP server(s).  List multiple servers for high availability ServerPool connection.
-LDAP_AUTH_URL = [os.environ.get('DJANGO_LDAP_AUTH_URL')]
+LDAP_AUTH_URL = [os.getenv('DJANGO_LDAP_AUTH_URL')]
 
 # Initiate TLS on connection.
 LDAP_AUTH_USE_TLS = False
@@ -151,7 +154,8 @@ LDAP_AUTH_USE_TLS = False
 #LDAP_AUTH_TLS_VERSION = ssl.PROTOCOL_TLSv1_2
 
 # The LDAP search base for looking up users.
-LDAP_AUTH_SEARCH_BASE = os.environ.get('DJANGO_LDAP_AUTH_SEARCH_BASE')
+
+LDAP_AUTH_SEARCH_BASE = os.getenv('DJANGO_LDAP_AUTH_SEARCH_BASE')
 
 # The LDAP class that represents a user.
 LDAP_AUTH_OBJECT_CLASS = "user"
@@ -196,8 +200,8 @@ LDAP_AUTH_ACTIVE_DIRECTORY_DOMAIN = None
 # The LDAP username and password of a user for querying the LDAP database for user
 # details. If None, then the authenticated user will be used for querying, and
 # the `ldap_sync_users`, `ldap_clean_users` commands will perform an anonymous query.
-LDAP_AUTH_CONNECTION_USERNAME = os.environ.get('DJANGO_LDAP_AUTH_CONNECTION_USERNAME')
-LDAP_AUTH_CONNECTION_PASSWORD = os.environ.get('DJANGO_LDAP_AUTH_CONNECTION_PASSWORD')
+LDAP_AUTH_CONNECTION_USERNAME = os.getenv('DJANGO_LDAP_AUTH_CONNECTION_USERNAME')
+LDAP_AUTH_CONNECTION_PASSWORD = os.getenv('DJANGO_LDAP_AUTH_CONNECTION_PASSWORD')
 
 # Set connection/receive timeouts (in seconds) on the underlying `ldap3` library.
 LDAP_AUTH_CONNECT_TIMEOUT = None
