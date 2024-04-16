@@ -1,0 +1,84 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+  
+  {#    Лого сайта  #}
+      <a class="navbar-brand" href="/">Посты</a>
+  
+  {#      Для мобильной версии  #}
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+  
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+  
+  {#      Главная   #}
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'home-place' %}">Home</a>
+          </li>
+  
+  {#      Создать заметку   #}
+          {% comment %} <li class="nav-item">
+            <a class="nav-link" href="{% url 'create-note' %}">Создать</a>
+          </li> {% endcomment %}
+  
+  {#      история заметок   #}
+          {% comment %} {% if history_uuids %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'show-history-of-pages' %}">
+                История
+                <span class="badge rounded-pill bg-danger">{{ history_uuids | length }}</span>
+            </a>
+          </li>
+          {% endif %} {% endcomment %}
+  
+  {#      О сайте   #}
+          {% comment %} <li class="nav-item">
+            <a class="nav-link" href="{% url 'show-about' %}">О сайте</a>
+          </li> {% endcomment %}
+  
+          {% comment %} {% if user.is_authenticated %} {% endcomment %}
+  
+          {#      Выход   #}
+                  {% comment %} <li class="nav-item">
+                      <form action="{% url 'logout' %}" method="post">
+                          {% csrf_token %}
+                          <button class="nav-link" type="submit">Выйти</button>
+                      </form>
+                  </li>
+  
+                  <li class="nav-item">
+                    <label class="nav-link">User: {{ user.get_username }}</label>
+                </li>
+                  
+          
+                {% else %} {% endcomment %}
+          
+          {#      Вход   #}
+                  {% comment %} <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Войти</a>
+                  </li> {% endcomment %}
+          
+          
+          {#      Регистрация   #}
+                  {% comment %} <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">Зарегистрироваться</a>
+                  </li>
+          
+                {% endif %} {% endcomment %}
+          
+  
+        </ul>
+  
+  
+  {#    Форма поиска (по умолчанию метод GET)   #}
+        <form class="d-flex" role="search" action="/">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-dark" type="submit">Search</button>
+        </form>
+  
+  
+      </div>
+    </div>
+  </nav>

@@ -20,8 +20,11 @@ class UsersCoworking(models.Model):
     """
     Сущность бронирования рабочего места
     """        
-    users = models.ManyToManyField(get_user_model(),related_name="users_cooworking",verbose_name="Пользователи")
-    places = models.ManyToManyField(PlaceCoworking,related_name="users_cooworking",verbose_name="Номер место ковореинга")
+    #users = models.ManyToManyField(get_user_model(),related_name="users_cooworking",verbose_name="Пользователи")
+    #places = models.ManyToManyField(PlaceCoworking,related_name="users_cooworking",verbose_name="Номер место ковореинга")
+    users = models.ForeignKey(get_user_model(),on_delete = models.CASCADE,related_name="users_cooworking",verbose_name="Пользователи")
+    places = models.ForeignKey(PlaceCoworking, on_delete=models.CASCADE,related_name="users_cooworking",verbose_name="Номер место ковореинга")
+    
     #meeting_time = models.DateTimeField(auto_now_add=True, verbose_name='Дата')
     meeting_time = models.DateField(verbose_name='Дата')
     
@@ -31,5 +34,7 @@ class UsersCoworking(models.Model):
         indexes = [
             models.Index(fields=("meeting_time",), name="meeting_time_index")
         ]
+        unique_together = ["users", "places", "meeting_time"]
+
 
     
