@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 
-from app.views import home_page_view, show_place_view
+from app.views import home_page_view, show_place_view, users_coworking_page_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,5 +25,6 @@ urlpatterns = [
     path('accounts/', include("django.contrib.auth.urls")),
     
     path("", home_page_view, name="home-place"),
-    path("place/<place_id>", show_place_view, name="show-place")
+    path("place/<place_id>", show_place_view, name="show-place"),
+    path("coworkingspace/<username>/places", users_coworking_page_view, name="list-users-coworkings"),
 ]

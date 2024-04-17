@@ -3,6 +3,7 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponseRedirect, Http404,HttpRequest
 
 from .models import PlaceCoworking, UsersCoworking
+from .service import queryset_optimization
 from users.models import User
 
 def home_page_view(request: WSGIRequest):
@@ -17,6 +18,27 @@ def home_page_view(request: WSGIRequest):
     
     return render(request, "home.html", context)
     #return render(request, "home.html", {"notes": queryset[:100]})
+
+def users_coworking_page_view(request: WSGIRequest, username: str):
+    
+    # try:
+    #     all_user_coworking = UsersCoworking.objects.get(id=user_id)
+    #     context: dict = {
+    #         "users_coworking": all_user_coworking
+    #     }
+    # except UsersCoworking.DoesNotExist:
+    #     raise Http404
+    # return render(request, "home.html", context)
+    
+    queryset = queryset_optimization(
+        UsersCoworking.objects.filter(users__username=username)
+    )
+    
+    print(UsersCoworking.objects.filter(users__username=username).query)
+    
+    return render(request, "users-coworking-list.html", {"usercoworkinslist": queryset})
+    
+    
     
 def show_place_view(request: WSGIRequest, place_id):
     try:

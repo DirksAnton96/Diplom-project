@@ -2,7 +2,7 @@
     <div class="container-fluid">
   
   {#    Лого сайта  #}
-      <a class="navbar-brand" href="/">Посты</a>
+      <a class="navbar-brand" href="/">Коворкинг</a>
   
   {#      Для мобильной версии  #}
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,7 +15,7 @@
   
   {#      Главная   #}
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'home-place' %}">Home</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'home-place' %}">Домой</a>
           </li>
   
   {#      Создать заметку   #}
@@ -35,13 +35,13 @@
   
   {#      О сайте   #}
           {% comment %} <li class="nav-item">
-            <a class="nav-link" href="{% url 'show-about' %}">О сайте</a>
-          </li> {% endcomment %}
+            <a class="nav-link" href="{% url 'list-users-coworkings' user.get_username %}">Список броней</a>
+          </li>   {% endcomment %}
   
-          {% comment %} {% if user.is_authenticated %} {% endcomment %}
+          {% if user.is_authenticated %}
   
           {#      Выход   #}
-                  {% comment %} <li class="nav-item">
+                  <li class="nav-item">
                       <form action="{% url 'logout' %}" method="post">
                           {% csrf_token %}
                           <button class="nav-link" type="submit">Выйти</button>
@@ -49,17 +49,22 @@
                   </li>
   
                   <li class="nav-item">
-                    <label class="nav-link">User: {{ user.get_username }}</label>
+                    <label class="nav-link">Пользователь: {{ user.get_username }}</label>
                 </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'list-users-coworkings' user.get_username %}">Список броней</a>
+                </li>  
                   
           
-                {% else %} {% endcomment %}
+                {% else %}
           
           {#      Вход   #}
-                  {% comment %} <li class="nav-item">
+                  <li class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">Войти</a>
-                  </li> {% endcomment %}
-          
+                  </li> 
+
+                 {% endif %}
           
           {#      Регистрация   #}
                   {% comment %} <li class="nav-item">
