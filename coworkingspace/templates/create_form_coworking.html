@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block title %}
+Создание брони
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Создание брони рабочего места</h1>
+
+    <form action="{% url 'create-user-coworking' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Выберите место для бронирования</label>
+          <select name="places">
+            {% for a in cw_places %}
+                <option value="{{a.id}}">{{a.name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="start">Дата бронирования</label>
+            <input type="date" id="start" name="meeting_time" value="{{ coworking.meeting_time }}"  />
+        </div>
+        
+
+
+        <!-- Блок кнопки -->
+        <button type="submit" class="btn btn-outline-primary">Отправить</button>
+
+    </form>
+</div>
+{% endblock %}

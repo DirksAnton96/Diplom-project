@@ -52,9 +52,20 @@
                     <label class="nav-link">Пользователь: {{ user.get_username }}</label>
                 </li>
 
-                <li class="nav-item">
+                {% comment %} <li class="nav-item">
                   <a class="nav-link" href="{% url 'list-users-coworkings' user.get_username %}">Список броней</a>
-                </li>  
+                </li>   {% endcomment %}
+
+                <div class="dropdown">
+                  <button class="nav-link" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    Список
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="{% url 'list-users-coworkings' user.get_username %}">Просмотреть мои брони</a></li>
+                    <li><a class="dropdown-item" href="{% url 'create-user-coworking'%}">Создать бронь</a></li>
+                    {% comment %} <li><a class="dropdown-item" href="#">Что-то еще здесь</a></li> {% endcomment %}
+                  </ul>
+                </div>
                   
           
                 {% else %}

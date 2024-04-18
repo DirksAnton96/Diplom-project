@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 
-from app.views import home_page_view, show_place_view, users_coworking_page_view
+from app.views import home_page_view, show_place_view, users_coworking_page_view, create_coworkings_view,show_coworking_view, update_coworking_view, delete_coworking_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +27,8 @@ urlpatterns = [
     path("", home_page_view, name="home-place"),
     path("place/<place_id>", show_place_view, name="show-place"),
     path("coworkingspace/<username>/places", users_coworking_page_view, name="list-users-coworkings"),
+    path("coworkingspace/create", create_coworkings_view, name="create-user-coworking"),
+    path("coworkingspace/<coworking_id>", show_coworking_view, name="show-request-coworking"),
+    path("coworkingspace/update/<coworking_id>", update_coworking_view, name="update-coworking-request" ),
+    path("coworkingspace/delete/<coworking_id>", delete_coworking_view, name="delete-coworking-request" )
 ]

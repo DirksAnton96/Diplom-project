@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	{{ coworking.meeting_time }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="text-center">
+            <h4 class="display-5 link-body-emphasis mb-1">{{ coworking.meeting_time  }}</h4>
+            <h2 class="blog-post-meta">{{ coworking.places.name | upper  }}</h2>
+        </div>
+
+         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+
+            {% if user.username == coworking.users.username %}
+
+            <a href="{% url 'update-coworking-request' coworking.id %}" class="btn btn-warning">Редактировать</a>
+
+            <form action="{% url 'delete-coworking-request' coworking.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Удалить</button>
+            </form>
+            {% endif %}
+        </div> 
+
+        <hr>
+
+    </div>
+{% endblock %}
