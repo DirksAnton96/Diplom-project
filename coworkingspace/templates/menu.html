@@ -63,6 +63,8 @@
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li><a class="dropdown-item" href="{% url 'list-users-coworkings' user.get_username %}">Просмотреть мои брони</a></li>
                     <li><a class="dropdown-item" href="{% url 'create-user-coworking'%}">Создать бронь</a></li>
+                    <li><a class="dropdown-item" href="{% url 'show-all-coworkings' %}">Просмотреть все брони</a></li>
+
                     {% comment %} <li><a class="dropdown-item" href="#">Что-то еще здесь</a></li> {% endcomment %}
                   </ul>
                 </div>

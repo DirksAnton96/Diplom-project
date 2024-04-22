@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 
 
-from .models import PlaceCoworking, UsersCoworking
+from .models import PlaceCoworking, UsersCoworking, UserReview
 from .service import queryset_optimization, create_coworking, update_coworking
 from users.models import User
 
@@ -92,7 +92,7 @@ def update_coworking_view(request: WSGIRequest, coworking_id):
         if coworking.users == request.user:
             if request.method == "POST":
                 coworking = update_coworking(request, coworking)
-                return HttpResponseRedirect(reverse('list-users-coworkings', args=[coworking.user]))
+                return HttpResponseRedirect(reverse('list-users-coworkings', args=[coworking.users]))
             else:
                 queryset = queryset_optimization(
                     UsersCoworking.objects.filter(users__username=request.user)
@@ -112,3 +112,14 @@ def delete_coworking_view(request: WSGIRequest, coworking_id):
         return HttpResponseRedirect(reverse('list-users-coworkings', args=[coworking.users]))
     except UsersCoworking.DoesNotExist:
         raise Http404
+    
+def show_all_coworkings(request: WSGIRequest):
+    queryset = queryset_optimization(
+        UsersCoworking.objects.all()
+    )
+    
+    return render(request, "users-coworking-list.html", {"usercoworkinslist": queryset})
+
+
+def show_all_review(request: WSGIRequest):
+    pass

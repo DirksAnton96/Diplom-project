@@ -17,7 +17,7 @@
 <div class="container">
     <h1>Создание брони рабочего места</h1>
 
-    <form action="{% url 'create-user-coworking' %}" method="post" enctype="multipart/form-data">
+    <form action="{% url 'update-coworking-request' coworking.id  %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
         <div class="mb-3">
@@ -34,6 +34,10 @@
             <input type="date" id="start" name="meeting_time" value="{{ coworking.meeting_time }}"  />
         </div>
         
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Требования</label>
+            <textarea name="requirement" class="form-control" id="exampleFormControlTextarea1" rows="10">{{ coworking.requirement }}</textarea>
+        </div>
 
 
         <!-- Блок кнопки -->

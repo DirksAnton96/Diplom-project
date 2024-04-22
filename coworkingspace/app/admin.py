@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from django.db.models import QuerySet, F
 
-from .models import PlaceCoworking, UsersCoworking
+from .models import PlaceCoworking, UsersCoworking, UserReview
 
 # Register your models here.
 @admin.register(PlaceCoworking)
@@ -12,4 +12,8 @@ class PlaceCoworkingAdmin(admin.ModelAdmin):
 
 @admin.register(UsersCoworking)
 class UsersCoworkingAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(UserReview)
+class UserReviewAdmin(admin.ModelAdmin):
     pass
