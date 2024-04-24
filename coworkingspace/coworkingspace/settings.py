@@ -97,8 +97,14 @@ WSGI_APPLICATION = 'coworkingspace.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DJANGO_POSTGRESQL_DATABASE'),
+        "USER": os.getenv('DJANGO_POSTGRESQL_USER'),
+        "PASSWORD": os.getenv('DJANGO_POSTGRESQL_PASSWORD'),
+        "HOST": os.getenv('DJANGO_POSTGRESQL_SERVER'),  # IP адрес или домен СУБД.
+        "PORT": os.getenv('DJANGO_POSTGRESQL_PORT'),
     }
 }
 
