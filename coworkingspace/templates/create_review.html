@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block title %}
+Создание отзыва
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Создание отзыва на бронь</h1>
+
+    <form action="{% url 'create-review-view' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Выберите дату бронирования:</label>
+          <select name="coworking">
+            {% for a in coworkinglist %}
+                <option value="{{a.id}}">{{a.meeting_time}}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        {% comment %} <div class="mb-3">
+            <label for="start">Дата бронирования</label>
+            <input type="date" id="start" name="meeting_time" value="{{ coworking.meeting_time }}"  />
+        </div> {% endcomment %}
+
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Текст отзыва: </label>
+            <textarea name="review" class="form-control" id="exampleFormControlTextarea1" rows="10"> {{ review.review }} </textarea>
+          </div>
+        
+
+
+        <!-- Блок кнопки -->
+        <button type="submit" class="btn btn-outline-primary">Отправить</button>
+
+    </form>
+</div>
+{% endblock %}

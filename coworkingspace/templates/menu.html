@@ -58,12 +58,25 @@
 
                 <div class="dropdown">
                   <button class="nav-link" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    Список
+                    Список броней
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li><a class="dropdown-item" href="{% url 'list-users-coworkings' user.get_username %}">Просмотреть мои брони</a></li>
                     <li><a class="dropdown-item" href="{% url 'create-user-coworking'%}">Создать бронь</a></li>
                     <li><a class="dropdown-item" href="{% url 'show-all-coworkings' %}">Просмотреть все брони</a></li>
+
+                    {% comment %} <li><a class="dropdown-item" href="#">Что-то еще здесь</a></li> {% endcomment %}
+                  </ul>
+                </div>
+
+                <div class="dropdown">
+                  <button class="nav-link" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                    Список отзывов
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                    <li><a class="dropdown-item" href="{% url 'show-user-reviews' user.get_username %}">Просмотреть мои отзывы</a></li>
+                    <li><a class="dropdown-item" href="{% url 'create-review-view'%}">Добавить отзыв</a></li>
+                    <li><a class="dropdown-item" href="{% url 'show-all-review' %}">Просмотреть все отзывы</a></li>
 
                     {% comment %} <li><a class="dropdown-item" href="#">Что-то еще здесь</a></li> {% endcomment %}
                   </ul>

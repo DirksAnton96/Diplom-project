@@ -38,7 +38,7 @@ class UsersCoworking(models.Model):
 
 class UserReview(models.Model):
     user = models.ForeignKey(get_user_model(),on_delete = models.CASCADE,related_name="user_reviews",verbose_name="Пользователи")
-    coworking = models.OneToOneField(UsersCoworking, on_delete = models.CASCADE, primary_key = True)
+    coworking = models.OneToOneField(UsersCoworking, on_delete = models.CASCADE)
     review = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     

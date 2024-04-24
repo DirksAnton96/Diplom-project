@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 
 from .models import PlaceCoworking, UsersCoworking, UserReview
-from .service import queryset_optimization, create_coworking, update_coworking
+from .service import queryset_optimization, create_coworking, update_coworking, queryset_optimization_review, create_review, update_review
 from users.models import User
 
 def home_page_view(request: WSGIRequest):
@@ -121,5 +121,78 @@ def show_all_coworkings(request: WSGIRequest):
     return render(request, "users-coworking-list.html", {"usercoworkinslist": queryset})
 
 
-def show_all_review(request: WSGIRequest):
-    pass
+def show_all_review_view(request: WSGIRequest):
+    queryset = queryset_optimization_review(
+        UserReview.objects.all()
+    )
+    
+    return render(request, "show_review_all.html", {"all_reviews": queryset})
+
+def show_user_reviews_view(request: WSGIRequest, username: str):
+    queryset = queryset_optimization_review(
+        UserReview.objects.filter(user__username=username)
+    )
+    
+    return render(request, "show_review_all.html", {"all_reviews": queryset})
+
+@login_required
+def show_review_view(request: WSGIRequest, review_id):
+    try:
+        review = UserReview.objects.get(id=review_id)
+    except UserReview.DoesNotExist:
+        raise Http404
+    return render(request, "show-review.html", {"review": review})
+
+@login_required
+def create_review_view(request: WSGIRequest):
+    
+    all_user_coworking = queryset_optimization(
+                UsersCoworking.objects.filter(users__username=request.user)
+            )
+    
+    if request.method == "POST":
+        try:
+            review = create_review(request)
+            queryset = queryset_optimization(
+                UsersCoworking.objects.filter(users__username=request.user)
+            )
+        
+            return HttpResponseRedirect(reverse('show-user-reviews', args=[review.user]))
+        except IntegrityError:
+            return render(request, "error.html", {"error": "Отзыв на данную бронь существует"})
+        except ValidationError:
+            return render(request, "error.html", {"error": "Вы не выбрали бронь"})
+    return render(request, "create_review.html", {"coworkinglist": all_user_coworking})
+
+
+@login_required
+def update_review_view(request: WSGIRequest, review_id):
+    try:
+        all_user_coworking = queryset_optimization(
+                UsersCoworking.objects.filter(users__username=request.user)
+            )
+        
+        review = UserReview.objects.get(id=review_id)
+        
+        if review.user == request.user:
+            if request.method == "POST":
+                review = update_review(request, review)
+                return HttpResponseRedirect(reverse('show-user-reviews', args=[review.user]))
+            else:
+                queryset = queryset_optimization(
+                    UsersCoworking.objects.filter(users__username=request.user)
+                )
+                return render(request, "edit_form_review.html", {"review": review, "coworkinglist": all_user_coworking})
+        else:
+            return HttpResponseRedirect(reverse('show-user-reviews', args=[review.user]))
+             
+    except UserReview.DoesNotExist:
+        raise Http404
+
+def delete_review_view(request: WSGIRequest, review_id):
+    try: 
+        review = UserReview.objects.get(id=review_id)
+        review.delete()
+        return HttpResponseRedirect(reverse('show-user-reviews', args=[review.user]))
+    except UsersCoworking.DoesNotExist:
+        raise Http404

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	{{ review.meeting_time }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="text-center">
+            <h4 class="display-5 link-body-emphasis mb-1"> Дата  брони: {{ review.coworking.meeting_time  }}</h4>
+            <h2 class="blog-post-meta"> Дата создания отзыва: {{   review.created_at }}</h2>
+            <p class="blog-post-meta"> Текст отзыва:  {{ review.review | upper }} </p>
+        </div>
+
+        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+
+            {% if user.username == review.user.username %}
+
+            <a href="{% url 'update-review-view' review.id %}" class="btn btn-warning">Редактировать</a>
+
+            <form action="{% url 'delete-review-view' review.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Удалить</button>
+            </form>
+            {% endif %}
+        </div>
+
+        <hr>
+
+    </div>
+{% endblock %}
