@@ -1,0 +1,10 @@
+*
+!coworkingspace/app
+!coworkingspace/coworkingspace
+!coworkingspace/templates
+!coworkingspace/users
+!coworkingspace/manage.py
+!pyproject.toml
+!poetry.lock
+!run.sh*
+!static/css
